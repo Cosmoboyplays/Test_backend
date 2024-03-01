@@ -68,3 +68,6 @@ class Group(models.Model):
 
     def __str__(self):
         return f'{self.name} | {len(self.students.all())}'
+
+    def name_count(self):
+        return self, len(self.students.all())

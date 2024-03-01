@@ -24,11 +24,11 @@ class AccessManager:
         d[product_name] = []
         self._write(d)
 
-    def add_user(self, product_name: str, user_name: int) -> None:
+    def add_user(self, product_name: str, username: str) -> None:
         d = self._read()
         if product_name not in d:
             d[product_name] = []
-        d[product_name].append(user_name)
+        d[product_name].append(username)
         self._write(d)
 
     def check_user_in_product(self, product_name: str, user_name: int) -> bool:
