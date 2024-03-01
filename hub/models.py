@@ -1,6 +1,9 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 from users.models import User
+from users.utils import AccessManager
 
 
 class Products(models.Model):
@@ -23,6 +26,20 @@ class Products(models.Model):
         return f'{self.name}'
 
 
+#  реализация второго задания:
+
+@receiver(post_save, sender=Products)
+def create_product_access(instance, created, **kwargs):
+    '''
+    Декоратор  @receiver  вызывает функцию  create_product_access  при сохранении нового объекта  Products . В
+    функции, если создан продукт мы через утилиту AccessManager добавляем ключ к словарю access_to_product.json.
+    '''
+
+    if created:
+        access_manager = AccessManager()
+        access_manager.add_product(instance.name)
+
+
 class Lessons(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
@@ -41,7 +58,7 @@ class Lessons(models.Model):
 class Group(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='groups')
     name = models.CharField(max_length=150, verbose_name='Название группы')
-    students = models.ManyToManyField(User, related_name='group_set', blank=True, verbose_name='Ученики')
+    students = models.ManyToManyField(User, related_name='group_set', blank=True, verbose_name='Студенты')
 
     class Meta:
         db_table = 'group'
@@ -50,4 +67,4 @@ class Group(models.Model):
         ordering = ("id",)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.name} | {len(self.students.all())}'
