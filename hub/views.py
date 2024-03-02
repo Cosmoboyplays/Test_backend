@@ -1,4 +1,3 @@
-from django.shortcuts import (render)
 from hub.models import Products, Lessons, Group
 from users.models import User
 from users.utils import AccessManager
@@ -19,8 +18,8 @@ def group_selection(product_id, username):  # юзера будем брать �
     '''Ниже алгоритм распределения в группы, сначала он добивает группу 1 до минимума, затем вторую и т.д.
     Когда везде минимум, он добавляет в группу по очереди, чтобы разница между группами была максимум 1
     '''
-    groups = sorted((group.name_count() for group in groups), key=lambda x: x[1], reverse=True)
-    # -> (Query group, count)
+    groups = sorted((group.name_count() for group in groups), key=lambda x: x[1], reverse=True)  # -> (QS group, count)
+
     flag = True
     for group in groups:
         if group[1] < min_users:

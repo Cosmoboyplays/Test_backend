@@ -31,10 +31,8 @@ class AccessManager:
         d[product_name].append(username)
         self._write(d)
 
-    def check_user_in_product(self, product_name: str, user_name: int) -> bool:
+    def check_user_in_product(self, product_name: str, user_name: str) -> bool:
         d = self._read()
         if product_name in d and user_name in d[product_name]:
             return True
         return False
-
-
