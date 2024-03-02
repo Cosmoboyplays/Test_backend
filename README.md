@@ -11,7 +11,7 @@ python manage.py runserver
 Суперюзер
 log:  Test
 pass: test
-5. Api соответсвует адресам 
+5. Api соответствует адресам 
 products/
 lessons/
 соответсвенно тз.
