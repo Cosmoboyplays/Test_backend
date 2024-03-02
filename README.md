@@ -7,6 +7,15 @@
 pip3 install -r requirements.txt
 3. Запустить
 python manage.py runserver
+4. Перейти на http://127.0.0.1:8000/admin/
+Суперюзер
+log:  Test
+pass: test
+5. Api соответсвует адресам 
+products/
+lessons/
+соответсвенно тз.
+
 
 
 Доступ юзера к продукту осуществлен через словарь users/access_to_product.json
